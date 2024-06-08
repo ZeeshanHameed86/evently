@@ -3,15 +3,22 @@
 import { IEvent } from "@/lib/database/models/event.model";
 import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import Checkout from "./Checkout";
 
 const CheckoutButton = ({ event }: { event: IEvent }) => {
   console.log({ event }, "2");
-  const { user } = useUser();
-  const userId = user?.publicMetadata.userId as string;
-  console.log({ userId }, { user });
+  const { user, isLoaded } = useUser();
+  const [userId, setUserId] = useState<string>("");
+
+  useEffect(() => {
+    if (isLoaded && user) {
+      console.log("User object:", user);
+      setUserId(user.publicMetadata.userId as string);
+      console.log({ userId: user.publicMetadata.userId }, { user });
+    }
+  }, [isLoaded, user]);
   const hasEventFinished = new Date(event.endDateTime) < new Date();
 
   return (
