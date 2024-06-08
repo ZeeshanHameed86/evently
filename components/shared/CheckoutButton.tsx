@@ -11,6 +11,7 @@ const CheckoutButton = ({ event }: { event: IEvent }) => {
   console.log({ event }, "2");
   const { user } = useUser();
   const userId = user?.publicMetadata.userId as string;
+  console.log(userId, user);
   const hasEventFinished = new Date(event.endDateTime) < new Date();
 
   return (
