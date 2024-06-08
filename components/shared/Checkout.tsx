@@ -8,7 +8,7 @@ import { checkoutOrder } from "@/lib/actions/order.actions";
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
-  console.log({ event }, "3");
+  console.log({ userId });
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
